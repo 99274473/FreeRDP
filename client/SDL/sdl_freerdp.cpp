@@ -1286,7 +1286,8 @@ BOOL SdlContext::update_resizeable(BOOL enable)
 
 SdlContext::SdlContext(rdpContext* context)
     : _context(context), log(WLog_Get(SDL_TAG)), update_complete(true), disp(this), input(this),
-      primary(nullptr, SDL_FreeSurface), primary_format(nullptr, SDL_FreeFormat)
+      clip(SdlCliprdrContext::instance(this)), primary(nullptr, SDL_FreeSurface),
+      primary_format(nullptr, SDL_FreeFormat)
 {
 }
 

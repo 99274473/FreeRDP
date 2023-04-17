@@ -51,47 +51,50 @@ include_directories(${SDL2_INCLUDE_DIRS})
 
 find_package(Threads REQUIRED)
 
+add_subdirectory(cliprdr)
+
 set(SRCS
-    sdl_types.hpp
-    sdl_utils.cpp
-    sdl_utils.hpp
-    sdl_kbd.cpp
-    sdl_kbd.hpp
-    sdl_touch.cpp
-    sdl_touch.hpp
-    sdl_pointer.cpp
-    sdl_pointer.hpp
-    sdl_disp.cpp
-    sdl_disp.hpp
-    sdl_monitor.cpp
-    sdl_monitor.hpp
-    sdl_freerdp.hpp
-    sdl_freerdp.cpp
-    sdl_channels.hpp
-    sdl_channels.cpp)
+	sdl_types.hpp
+	sdl_utils.cpp
+	sdl_utils.hpp
+	sdl_kbd.cpp
+	sdl_kbd.hpp
+	sdl_touch.cpp
+	sdl_touch.hpp
+	sdl_pointer.cpp
+	sdl_pointer.hpp
+	sdl_disp.cpp
+	sdl_disp.hpp
+	sdl_monitor.cpp
+	sdl_monitor.hpp
+	sdl_freerdp.hpp
+	sdl_freerdp.cpp
+	sdl_channels.hpp
+	sdl_channels.cpp)
 
 set(LIBS
 	${SDL2_LIBRARIES}
-        winpr
-        freerdp
-        freerdp-client
-        Threads::Threads
-    )
+	winpr
+	freerdp
+	freerdp-client
+	Threads::Threads
+	sdl-cliprdr
+	)
 
 option(WITH_WEBVIEW "Build with QtWebEngine support for AAD login popup browser" OFF)
 if (WITH_WEBVIEW)
   find_package(Qt5 COMPONENTS WebEngineWidgets REQUIRED)
 
   list(APPEND SRCS
-      sdl_webview.cpp
-      sdl_webview.hpp
-      )
+	  sdl_webview.cpp
+	  sdl_webview.hpp
+	  )
   list(APPEND LIBS Qt5::WebEngineWidgets)
 endif()
 
 add_executable(${PROJECT_NAME}
 	${SRCS}
-    )
+	)
 
 if (WITH_WEBVIEW)
 	target_compile_definitions(
@@ -101,9 +104,9 @@ if (WITH_WEBVIEW)
 endif()
 
 set_target_properties(${PROJECT_NAME}
-    PROPERTIES
-    OUTPUT_NAME "sdl-freerdp"
-    )
+	PROPERTIES
+	OUTPUT_NAME "sdl-freerdp"
+	)
 target_link_libraries(${PROJECT_NAME} PRIVATE ${LIBS})
 set_property(TARGET ${PROJECT_NAME} PROPERTY FOLDER "Client/SDL")
 install(TARGETS ${PROJECT_NAME} DESTINATION ${CMAKE_INSTALL_BINDIR} COMPONENT client)

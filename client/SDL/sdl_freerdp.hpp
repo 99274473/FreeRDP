@@ -36,6 +36,7 @@
 #include "sdl_disp.hpp"
 #include "sdl_kbd.hpp"
 #include "sdl_utils.hpp"
+#include "cliprdr/sdl_cliprdr_context.hpp"
 
 typedef struct
 {
@@ -77,6 +78,7 @@ class SdlContext
 
 	sdlDispContext disp;
 	sdlInput input;
+	std::unique_ptr<SdlCliprdrContext> clip;
 
 	SDLSurfacePtr primary;
 	SDLPixelFormatPtr primary_format;
